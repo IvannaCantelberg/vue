@@ -25,8 +25,10 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import PostForm from '@/components/post/PostFrom.vue';
-import { IPost } from '@/store/posts.store';
+import { IPost, usePostsStore } from '@/store/posts.store';
 import axios from 'axios';
+
+const store = usePostsStore();
 
 export default defineComponent({
   name: 'PostEdit',
@@ -61,12 +63,13 @@ export default defineComponent({
     validateForm() {
       this.postFormRef.validateForm();
     },
-    onUpdatePost(post: IPost) {
-      const updatedPost = this.updatePost(this.postIndex, post);
+    async onUpdatePost(post: IPost) {
+      const updatedPost: IPost | boolean = await this.updatePost(post);
       if (!updatedPost) return;
+      store.editPost(this.postIndex, updatedPost as IPost);
       this.$emit('update');
     },
-    async updatePost(atIndex: number, post: IPost) {
+    async updatePost(post: IPost) {
       return await axios
         .put<IPost>(`/api/posts/${post._id}`, post)
         .then((res) => {
