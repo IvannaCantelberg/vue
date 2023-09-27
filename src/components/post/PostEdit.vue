@@ -1,5 +1,5 @@
 <template>
-  <a-drawer
+  <Drawer
     title="Edit post"
     :width="720"
     :open="isOpen"
@@ -14,24 +14,35 @@
       @submit="onUpdatePost" />
 
     <template #extra>
-      <a-space>
-        <a-button @click="onClose">Cancel</a-button>
-        <a-button type="primary" @click="validateForm()"> Update</a-button>
-      </a-space>
+      <Space>
+        <Button @click="onClose">Cancel</Button>
+        <Button type="primary" @click="validateForm()"> Update</Button>
+      </Space>
     </template>
-  </a-drawer>
+  </Drawer>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
 import PostForm from '@/components/post/PostFrom.vue';
 import { IPost, usePostsStore } from '@/store/posts.store';
+import { Button, Drawer, Space } from 'ant-design-vue';
 import axios from 'axios';
+import { defineComponent, ref } from 'vue';
+
+const AntdComponents = {
+  Drawer,
+  Button,
+  Space,
+};
 
 const store = usePostsStore();
 
 export default defineComponent({
   name: 'PostEdit',
+  components: {
+    ...AntdComponents,
+    PostForm,
+  },
   props: {
     isOpen: {
       type: Boolean,
@@ -45,9 +56,7 @@ export default defineComponent({
     },
   },
   emits: ['close', 'update'],
-  components: {
-    PostForm,
-  },
+
   data() {
     return {};
   },

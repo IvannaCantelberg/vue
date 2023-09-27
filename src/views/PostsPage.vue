@@ -1,5 +1,6 @@
 <template>
-  <a-button type="primary" @click="onCreatePost"> Create Post </a-button>
+  <Button type="primary" @click="onCreatePost"> Create Post </Button>
+
   <PostCreate
     :isOpen="isCreatePostOpened"
     @close="onCloseCreatePost"
@@ -12,7 +13,9 @@
     @close="onCloseEditPost"
     @update="onCloseEditPost" />
 
-  <a-space direction="vertical" class="cards-wrapper">
+  <Empty v-if="!store.posts.length" />
+
+  <Space direction="vertical" class="cards-wrapper">
     <PostCard
       v-for="(post, index) in store.posts"
       :key="post._id"
@@ -20,22 +23,29 @@
       :index="index"
       @delete="onDeletePost(index, post)"
       @edit="onPostEdit(index, post)" />
-  </a-space>
+  </Space>
 </template>
 
 <script lang="ts">
-import { Ref, defineComponent, ref } from 'vue';
 import PostCard from '@/components/post/PostCard.vue';
 import PostCreate from '@/components/post/PostCreate.vue';
 import PostEdit from '@/components/post/PostEdit.vue';
-import { usePostsStore, IPost, IPostTypes } from '@/store/posts.store';
+import { IPost, IPostTypes, usePostsStore } from '@/store/posts.store';
+import { Button, Empty, Space } from 'ant-design-vue';
 import axios from 'axios';
+import { Ref, defineComponent, ref } from 'vue';
 
+const AntdComponents = {
+  Empty,
+  Space,
+  Button,
+};
 const store = usePostsStore();
 
 export default defineComponent({
   name: 'PostsPage',
   components: {
+    ...AntdComponents,
     PostCard,
     PostCreate,
     PostEdit,

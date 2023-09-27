@@ -1,47 +1,57 @@
 <template>
-  <a-card :title="postData.title" :bordered="true" hoverable>
+  <Card :title="postData.title" :bordered="true" hoverable>
     <template v-slot:extra>
-      <a-space>
+      <Space>
         <PostBadge
           :text="postData.recordType.name"
           :color="postData.recordType.color" />
 
-        <a-tooltip title="Edit Post">
-          <a-button shape="circle" type="text" @click="onEdit">
+        <Tooltip title="Edit Post">
+          <Button shape="circle" type="text" @click="onEdit">
             <template #icon><EditOutlined /></template>
-          </a-button>
-        </a-tooltip>
-        <a-tooltip title="Delete Post">
-          <a-button shape="circle" type="text" @click="onDelete">
+          </Button>
+        </Tooltip>
+        <Tooltip title="Delete Post">
+          <Button shape="circle" type="text" @click="onDelete">
             <template #icon><DeleteOutlined /></template>
-          </a-button>
-        </a-tooltip>
-      </a-space>
+          </Button>
+        </Tooltip>
+      </Space>
       <!-- <a-button shape="circle" :icon="h(EditFilled)" /> -->
     </template>
 
-    <a-card-meta :title="'Anonymous'" :description="createdAt">
+    <CardMeta :title="'Anonymous'" :description="createdAt">
       <template v-slot:avatar>
-        <a-avatar src="https://i.pravatar.cc/50" />
+        <Avatar src="https://i.pravatar.cc/50" alt="user avatar" />
       </template>
-    </a-card-meta>
+    </CardMeta>
 
     Description:
     <p>{{ postData.description || '- - - - ' }}</p>
-  </a-card>
+  </Card>
 </template>
 <script lang="ts">
-// import CardWrapper from './Card/index.vue';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { Avatar, Button, Card, CardMeta, Space, Tooltip } from 'ant-design-vue';
 import { defineComponent } from 'vue';
 import PostBadge from './PostBadge.vue';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+
+const AntdComponents = {
+  EditOutlined,
+  DeleteOutlined,
+  Card,
+  CardMeta,
+  Space,
+  Tooltip,
+  Button,
+  Avatar,
+};
 
 export default defineComponent({
   name: 'PostCard',
   components: {
+    ...AntdComponents,
     PostBadge,
-    EditOutlined,
-    DeleteOutlined,
   },
   props: {
     index: {

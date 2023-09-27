@@ -1,5 +1,5 @@
 <template>
-  <a-drawer
+  <Drawer
     title="Create new post"
     :width="720"
     :open="isOpen"
@@ -14,23 +14,24 @@
       @submit="onCreatePost" />
 
     <template #extra>
-      <a-space>
-        <a-button @click="onClose">Cancel</a-button>
-        <a-button type="primary" @click="validateForm()"> Create</a-button>
-      </a-space>
+      <Space>
+        <Button @click="onClose">Cancel</Button>
+        <Button type="primary" @click="validateForm()"> Create</Button>
+      </Space>
     </template>
-  </a-drawer>
+  </Drawer>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
 import PostForm from '@/components/post/PostFrom.vue';
 import {
-  usePostsStore,
   IPost,
   useInitialPostDataStore,
+  usePostsStore,
 } from '@/store/posts.store';
+import { Button, Drawer, Space } from 'ant-design-vue';
 import axios from 'axios';
+import { defineComponent, ref } from 'vue';
 
 const store = usePostsStore();
 const initialPostStore = useInitialPostDataStore();
@@ -47,6 +48,9 @@ export default defineComponent({
   emits: ['close', 'create'],
   components: {
     PostForm,
+    Space,
+    Drawer,
+    Button,
   },
   data() {
     return {

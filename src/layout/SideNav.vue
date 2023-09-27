@@ -1,26 +1,37 @@
 <template>
   <div class="logo" />
-  <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-    <a-menu-item key="1">
-      <user-outlined />
+  <Menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+    <MenuItem key="1">
+      <UserOutlined />
       <span>nav 1</span>
-    </a-menu-item>
-    <a-menu-item key="2">
+    </MenuItem>
+    <MenuItem key="2">
       <video-camera-outlined />
       <span>nav 2</span>
-    </a-menu-item>
-    <a-menu-item key="3">
+    </MenuItem>
+    <MenuItem key="3">
       <upload-outlined />
       <span>nav 3</span>
-    </a-menu-item>
-  </a-menu>
+    </MenuItem>
+  </Menu>
 </template>
 
 <script lang="ts">
+import { UserOutlined } from '@ant-design/icons-vue';
+import { Menu, MenuItem } from 'ant-design-vue';
 import { defineComponent, ref } from 'vue';
+
+const AntdComponents = {
+  Menu,
+  MenuItem,
+  UserOutlined,
+};
 
 const SideNav = defineComponent({
   name: 'SideNav',
+  components: {
+    ...AntdComponents,
+  },
   props: {
     collapsed: {
       type: Boolean,

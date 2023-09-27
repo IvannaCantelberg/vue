@@ -1,55 +1,75 @@
 <template>
-  <a-form
+  <Form
     ref="formRef"
     :model="form"
     name="nest-messages"
     :validate-messages="validateMessages"
     @submit="onSubmit">
-    <a-form-item
+    <FormItem
       :name="['post', 'title']"
       label="Title"
       :rules="[{ required: true }]">
-      <a-input v-model:value="form.post.title" />
-    </a-form-item>
-    <a-form-item
+      <Input v-model:value="form.post.title" />
+    </FormItem>
+    <FormItem
       :name="['post', 'location']"
       label="Location"
       :rules="[{ required: true }]">
-      <a-input v-model:value="form.post.location" />
-    </a-form-item>
-    <a-form-item
+      <Input v-model:value="form.post.location" />
+    </FormItem>
+    <FormItem
       :name="['post', 'recordType']"
       label="Type"
       :rules="[{ required: true }]">
-      <a-select
+      <Select
         ref="select"
-        @select="onSelect"
+        @select="onSelect(form.post.recordType._id)"
         v-model:value="form.post.recordType._id">
-        <a-select-option
+        <SelectOption
           v-for="record in records"
           :key="record._id"
           :value="record._id">
           {{ record.name }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
+        </SelectOption>
+      </Select>
+    </FormItem>
 
-    <a-form-item :name="['post', 'description']" label="Description">
-      <a-textarea v-model:value="form.post.description" />
-    </a-form-item>
-  </a-form>
+    <FormItem :name="['post', 'description']" label="Description">
+      <Textarea v-model:value="form.post.description" />
+    </FormItem>
+  </Form>
 </template>
 
 <script lang="ts">
-import { FormInstance } from 'ant-design-vue';
+import {
+  Form,
+  FormInstance,
+  FormItem,
+  Input,
+  Select,
+  SelectOption,
+  Textarea,
+} from 'ant-design-vue';
 import { defineComponent, ref } from 'vue';
 import { useInitialPostDataStore, usePostsStore } from '@/store/posts.store';
+
+const AntdComponents = {
+  Form,
+  FormItem,
+  Input,
+  Select,
+  SelectOption,
+  Textarea,
+};
 
 const store = usePostsStore();
 const initialPostStore = useInitialPostDataStore();
 
 export default defineComponent({
   name: 'PostForm',
+  components: {
+    ...AntdComponents,
+  },
   setup() {
     const formRef = ref<FormInstance>();
     const validateMessages = {
