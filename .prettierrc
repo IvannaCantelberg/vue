@@ -1,0 +1,16 @@
+{
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "semi": true,
+  "trailingComma": "all",
+  "bracketSameLine": true,
+  "tabWidth": 2,
+  "prettier/prettier": [
+    "error",
+    {
+      "singleQuote": false,
+      "parser": "flow",
+      "bracketSameLine": true
+    }
+  ]
+} 
