@@ -17,14 +17,16 @@
       <Header
         :style="{
           position: 'fixed',
+          right: 0,
+          left: '200px',
+          padding: '0',
           zIndex: 1,
-          width: '100%',
-          backgroundColor: '#fff',
         }">
+        <TopHeader />
       </Header>
       <Content
         :style="{
-          margin: '64px 0 0',
+          margin: '80px 0 0',
           overflow: 'auto',
           padding: '24px 24px 0',
         }">
@@ -44,6 +46,7 @@
 </template>
 
 <script lang="ts">
+import TopHeader from '@/layout/TopHeader.vue';
 import SideNav from '@/layout/SideNav.vue';
 import { Layout } from 'ant-design-vue';
 import Sider from 'ant-design-vue/es/layout/Sider';
@@ -61,6 +64,7 @@ export default defineComponent({
   name: 'AppLayout',
   components: {
     ...AntdComponents,
+    TopHeader,
     SideNav,
   },
 });

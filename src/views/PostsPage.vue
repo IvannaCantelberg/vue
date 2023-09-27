@@ -1,5 +1,10 @@
 <template>
-  <Button type="primary" @click="onCreatePost"> Create Post </Button>
+  <Button type="primary" :ghost="true" size="large" @click="onCreatePost">
+    Create Post
+    <template #icon>
+      <PlusOutlined />
+    </template>
+  </Button>
 
   <PostCreate
     :isOpen="isCreatePostOpened"
@@ -31,6 +36,7 @@ import PostCard from '@/components/post/PostCard.vue';
 import PostCreate from '@/components/post/PostCreate.vue';
 import PostEdit from '@/components/post/PostEdit.vue';
 import { IPost, IPostTypes, usePostsStore } from '@/store/posts.store';
+import { PlusOutlined } from '@ant-design/icons-vue';
 import { Button, Empty, Space } from 'ant-design-vue';
 import axios from 'axios';
 import { Ref, defineComponent, ref } from 'vue';
@@ -39,6 +45,7 @@ const AntdComponents = {
   Empty,
   Space,
   Button,
+  PlusOutlined,
 };
 const store = usePostsStore();
 
